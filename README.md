@@ -19,3 +19,5 @@ Constraints
   Input images must be pre-stored on the device.
   Output files will also be stored locally.
   Limited to reasonably sized image files for performance considerations.
+
+** CURRENTLY IN PROGRESS **
