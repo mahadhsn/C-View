@@ -1,0 +1,33 @@
+name: c-view test utility
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build release (c-view)
+        run: |
+          make c-view
+
+      - name: Build testing (c-view-test) with coverage
+        run: |
+          make c-view-test
+
+      - name: Run tests and generate coverage
+        run: |
+          ./test/testscript.sh > ./test/test_results.txt
+          gcov c-view-test-C-View.c c-view-test-blur.c c-view-test-reflection.c c-view-test-rotation.c c-view-test-grayscale.c c-view-test-edgeDetect.c
+
+      - name: Upload Test Results and Coverage Report
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Test Results and Coverage
+          path: |
+            ./test/test_results.txt
+            *.gcov
