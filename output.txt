@@ -1,2 +1,0 @@
-Usage: ./c-view [OPTIONS]
-Try './c-view --help' for more information.

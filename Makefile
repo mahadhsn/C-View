@@ -1,5 +1,5 @@
-c-view: C-View.c blur.c edgeDetect.c grayscale.c reflection.c rotation.c 
-	gcc -o c-view C-View.c blur.c edgeDetect.c grayscale.c reflection.c rotation.c
+c-view: ./src/C-View.c ./src/blur.c ./src/edgeDetect.c ./src/grayscale.c ./src/reflection.c ./src/rotation.c 
+	gcc -o c-view ./src/C-View.c ./src/blur.c ./src/edgeDetect.c ./src/grayscale.c ./src/reflection.c ./src/rotation.c
 
-c-view-test: C-View.c blur.c edgeDetect.c grayscale.c reflection.c rotation.c 
-	gcc -o c-view-test --coverage C-View.c blur.c edgeDetect.c grayscale.c reflection.c rotation.c 
+c-view-test: ./src/C-View.c ./src/blur.c ./src/edgeDetect.c ./src/grayscale.c ./src/reflection.c ./src/rotation.c 
+	gcc -o c-view-test --coverage ./src/C-View.c ./src/blur.c ./src/edgeDetect.c ./src/grayscale.c ./src/reflection.c ./src/rotation.c 
