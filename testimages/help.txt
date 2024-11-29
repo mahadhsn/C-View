@@ -1,0 +1,13 @@
+c-view: v1.0.2
+c-view is a utility to perform operations and add filters onto image files.
+
+Usage: ./c-view [OPTIONS]
+Options:
+  --help           Display this help message and exit
+  -gs              flag will convert the image into a grayscaled version
+  -rs              flag will convert the image into a reflected version according to input
+  -rot             flag will convert the image into a rotated version according to input
+  -bl              flag will convert the image into a blurred version
+  -ed              flag will convert the image into a version with edges highlighted
+Examples:
+  ./c-view -gs [image file location] [image file output]
