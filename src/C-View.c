@@ -9,7 +9,7 @@
 
 //help files
 void help() {
-    printf("c-view: v1.0.2\n");
+    printf("c-view: v2.0.0\n");
     printf("c-view is a utility to perform operations and add filters onto image files.\n\n");
     printf("Usage: ./c-view [OPTIONS]\n");
     printf("Options:\n");
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]){
             grayscale(in, out);
             fclose(out);
         }else if(strcmp(argv[1], "-rs") == 0){
-            reflection();
+            reflection(argv[2], argv[3]);
             
         }else if (strcmp(argv[1], "-rot") == 0) {
             //printf("Rotation option selected\n");
@@ -75,7 +75,15 @@ int main(int argc, char* argv[]){
         }else if(strcmp(argv[1], "-bl") == 0){
             blur();
         }else if(strcmp(argv[1], "-ed") == 0){
-            edgeDetect();
+            FILE *out = fopen(argv[3], "wb");
+            if (!out) {
+                printf("Error opening output file\n");
+                fclose(in);
+                return 1;
+            }
+            edgeDetect(in, out);
+            fclose(out);
+
         }else{
             //printf("Invalid flag\n");
             usage();
