@@ -1,1 +1,1 @@
-void grayscale();
+void grayscale(FILE *in, FILE *out);

@@ -74,12 +74,12 @@ test() {
     echo "TC $tc Passed"
 }
 
-test "./c-view-test --help" "" 0 "../test/help.txt" "../test/help.txt" "" ""
-test "./c-view-test -ed ../test/file_not_found.bmp ../test/file_out.bmp" "" 1 "" "../test/usage.txt" "" ""
-test "./c-view-test -rot ../test/snail.bmp ../test/rotate_out.bmp" "../test/rotate.bmp" 0 "" "" "../test/rotate_out.bmp" "../test/snail_rotated.bmp"
-#test "./c-view-test -gs ../test/snail.bmp ../test/grayscale_out.bmp" "../test/grayscale.bmp" 0 "" "" "../test/grayscale_out.bmp" "../test/snail_grayscale.bmp"
-#test "./c-view-test -rs ../test/snail.bmp ../test/reflect_out.bmp" "../test/reflect.bmp" 0 "" "" "../test/reflect_out.bmp" "../test/snail_reflect.bmp"
-#test "./c-view-test -bl ../test/snail.bmp ../test/blur_out.bmp" "../test/blur.bmp" 0 "" "" "../test/blur_out.bmp" "../test/snail_blur.bmp"
-#test "./c-view-test -ed ../test/snail.bmp ../test/edge_out.bmp" "../test/edge.bmp" 0 "" "" "../test/edge_out.bmp" "../test/snail_edge.bmp"
+test "./c-view-test --help" "" 0 "./test/help.txt" "./test/help.txt" "" ""
+test "./c-view-test -ed ./test/file_not_found.bmp ./test/file_out.bmp" "" 1 "" "./test/usage.txt" "" ""
+test "./c-view-test -rot ./test/snail.bmp ./test/rotate_out.bmp" "./test/rotate.bmp" 0 "" "" "./test/rotate_out.bmp" "./test/snail_rotated.bmp"
+#test "./c-view-test -gs ./test/snail.bmp ./test/grayscale_out.bmp" "./test/grayscale.bmp" 0 "" "" "./test/grayscale_out.bmp" "./test/snail_grayscale.bmp"
+test "./c-view-test -rs ./test/snail.bmp ./test/reflect_out.bmp" "./test/reflect.bmp" 0 "" "" "./test/reflect_out.bmp" "./test/snail_reflect.bmp"
+#test "./c-view-test -bl ./test/snail.bmp ./test/blur_out.bmp" "./test/blur.bmp" 0 "" "" "./test/blur_out.bmp" "./test/snail_blur.bmp"
+test "./c-view-test -ed ./test/snail.bmp ./test/edge_out.bmp" "./test/edge.bmp" 0 "" "" "./test/edge_out.bmp" "./test/snail_edge.bmp"
 
 exit $fails

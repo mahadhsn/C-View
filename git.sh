@@ -8,14 +8,10 @@ if [ -z "$commit_message" ]; then
   exit 1
 fi
 
-if [ -z "$git_tag" ]; 
-then
+if [ -z "$git_tag" ]; then
   git commit -m "$commit_message"
   git push
   echo "Push Completed without tag: $commit_message"
-  exit 0
-fi
-
 else
   git commit -m "$commit_message"
   git push

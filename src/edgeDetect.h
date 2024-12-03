@@ -1,1 +1,1 @@
-void edgeDetect();
+void edgeDetect(FILE *in, FILE *out);

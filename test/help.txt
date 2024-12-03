@@ -1,4 +1,4 @@
-c-view: v1.0.2
+c-view: v2.0.0
 c-view is a utility to perform operations and add filters onto image files.
 
 Usage: ./c-view [OPTIONS]
