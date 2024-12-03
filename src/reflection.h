@@ -1,1 +1,1 @@
-void reflection();
+void reflection(const char *inputFile, const char *outputFile);

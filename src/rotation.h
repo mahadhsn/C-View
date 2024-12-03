@@ -1,1 +1,1 @@
-void rotateLeft90(const char *inputFile, const char *outputFile);
+void rotateLeft90(FILE *in, FILE *out);
