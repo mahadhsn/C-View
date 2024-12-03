@@ -75,11 +75,11 @@ test() {
 }
 
 test "./c-view-test --help" "" 0 "./test/help.txt" "./test/help.txt" "" ""
-test "./c-view-test -ed ./test/file_not_found.bmp ./test/file_out.bmp" "" 1 "" "./test/usage.txt" "" ""
-test "./c-view-test -rot ./test/snail.bmp ./test/rotate_out.bmp" "./test/rotate.bmp" 0 "" "" "./test/rotate_out.bmp" "./test/snail_rotated.bmp"
-#test "./c-view-test -gs ./test/snail.bmp ./test/grayscale_out.bmp" "./test/grayscale.bmp" 0 "" "" "./test/grayscale_out.bmp" "./test/snail_grayscale.bmp"
-test "./c-view-test -rs ./test/snail.bmp ./test/reflect_out.bmp" "./test/reflect.bmp" 0 "" "" "./test/reflect_out.bmp" "./test/snail_reflect.bmp"
-#test "./c-view-test -bl ./test/snail.bmp ./test/blur_out.bmp" "./test/blur.bmp" 0 "" "" "./test/blur_out.bmp" "./test/snail_blur.bmp"
-test "./c-view-test -ed ./test/snail.bmp ./test/edge_out.bmp" "./test/edge.bmp" 0 "" "" "./test/edge_out.bmp" "./test/snail_edge.bmp"
+test "./c-view-test -ed ./test/testimages/file_not_found.bmp ./test/testimages/file_out.bmp" "" 1 "" "./test/usage.txt" "" ""
+test "./c-view-test -rot ./test/testimages/snail.bmp ./test/testimages/rotate_out.bmp" "./test/testimages/rotate.bmp" 0 "" "" "./test/testimages/rotate_out.bmp" "./test/testimages/snail_rotated.bmp"
+#test "./c-view-test -gs ./test/testimages/snail.bmp ./test/testimages/grayscale_out.bmp" "./test/testimages/grayscale.bmp" 0 "" "" "./test/testimages/grayscale_out.bmp" "./test/testimages/snail_grayscale.bmp"
+test "./c-view-test -rs ./test/testimages/snail.bmp ./test/testimages/reflect_out.bmp" "./test/testimages/reflect.bmp" 0 "" "" "./test/testimages/reflect_out.bmp" "./test/testimages/snail_reflect.bmp"
+#test "./c-view-test -bl ./test/testimages/snail.bmp ./test/testimages/blur_out.bmp" "./test/testimages/blur.bmp" 0 "" "" "./test/testimages/blur_out.bmp" "./test/testimages/snail_blur.bmp"
+test "./c-view-test -ed ./test/testimages/snail.bmp ./test/testimages/edge_out.bmp" "./test/testimages/edge.bmp" 0 "" "" "./test/testimages/edge_out.bmp" "./test/testimages/snail_edge.bmp"
 
 exit $fails

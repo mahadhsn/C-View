@@ -9,7 +9,7 @@
 
 //help files
 void help() {
-    printf("c-view: v2.0.0\n");
+    printf("c-view: v2.1.0\n");
     printf("c-view is a utility to perform operations and add filters onto image files.\n\n");
     printf("Usage: ./c-view [OPTIONS]\n");
     printf("Options:\n");
