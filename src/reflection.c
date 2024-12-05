@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-// Define BMP header structures
-#pragma pack(push, 1) // Ensure no padding
+// Define BMP header structures which can be used to read the header of a BMP file
+#pragma pack(push, 1) // Ensure no padding in memory of the following structures
 typedef struct {
     uint16_t bfType;
     uint32_t bfSize;
@@ -26,67 +26,54 @@ typedef struct {
     uint32_t biClrUsed;
     uint32_t biClrImportant;
 } BITMAPINFOHEADER;
-#pragma pack(pop)
+#pragma pack(pop) // Restore default padding
 
-void reflection(const char *inputFile, const char *outputFile) {
-    FILE *in = fopen(inputFile, "rb");
-    if (!in) {
-        perror("Error opening input file");
-        exit(EXIT_FAILURE);
+
+////////////////////////////////////////
+// Function to reflect an image horizontally
+// arguments: FILE *in, FILE *out the input and output files
+// returns: none
+////////////////////////////////////////
+
+void reflection(FILE *in, FILE *out) {
+    unsigned char header[54];
+
+    fread(header, sizeof(unsigned char), 54, in);
+    fwrite(header, sizeof(unsigned char), 54, out);
+
+    int width = *(int *)&header[18];
+    int height = *(int *)&header[22];
+
+    int row_padded = (width * 3 + 3) & (~3);
+    unsigned char *row_data = (unsigned char *)malloc(row_padded);
+
+    if (!row_data) {
+        printf("Error allocating memory\n");
+        return;
     }
-
-    FILE *out = fopen(outputFile, "wb");
-    if (!out) {
-        fclose(in);
-        perror("Error opening output file");
-        exit(EXIT_FAILURE);
-    }
-
-    BITMAPFILEHEADER fileHeader;
-    BITMAPINFOHEADER infoHeader;
-
-    // Read BMP headers
-    fread(&fileHeader, sizeof(BITMAPFILEHEADER), 1, in);
-    fread(&infoHeader, sizeof(BITMAPINFOHEADER), 1, in);
-
-    // Validate BMP format
-    if (fileHeader.bfType != 0x4D42) {
-        fprintf(stderr, "Unsupported file format.\n");
-        fclose(in);
-        fclose(out);
-        exit(EXIT_FAILURE);
-    }
-
-    // Write headers to the output file
-    fwrite(&fileHeader, sizeof(BITMAPFILEHEADER), 1, out);
-    fwrite(&infoHeader, sizeof(BITMAPINFOHEADER), 1, out);
-
-    int width = infoHeader.biWidth;
-    int height = abs(infoHeader.biHeight);
-    int padding = (4 - (width * 3) % 4) % 4;
-
-    // Allocate memory for one row of pixel data
-    uint8_t *row = malloc(width * 3);
 
     for (int i = 0; i < height; i++) {
-        fread(row, 3, width, in);          // Read a row
-        fseek(in, padding, SEEK_CUR);     // Skip padding
+        fread(row_data, sizeof(unsigned char), row_padded, in);
 
-        // Reflect the row horizontally
+        // Reflect row by swapping individual RGB values
         for (int j = 0; j < width / 2; j++) {
-            for (int k = 0; k < 3; k++) { // Swap RGB values
-                uint8_t temp = row[j * 3 + k];
-                row[j * 3 + k] = row[(width - 1 - j) * 3 + k];
-                row[(width - 1 - j) * 3 + k] = temp;
+            int left_idx = j * 3;
+            int right_idx = (width - j - 1) * 3;
+
+            for (int k = 0; k < 3; k++) {
+                unsigned char temp = row_data[left_idx + k];
+                row_data[left_idx + k] = row_data[right_idx + k];
+                row_data[right_idx + k] = temp;
             }
         }
 
-        fwrite(row, 3, width, out);       // Write the row
-        for (int p = 0; p < padding; p++) fputc(0, out); // Write padding
+        fwrite(row_data, sizeof(unsigned char), row_padded, out);
     }
 
-    free(row);
-    fclose(in);
-    fclose(out);
+    free(row_data);
+    //printf("Reflection completed successfully\n");
 }
+
+
+
 

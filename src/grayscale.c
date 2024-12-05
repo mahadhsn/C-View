@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+////////////////////////////////////////
+// Function to convert an image to grayscale
+// arguments: FILE *in, FILE *out the input and output files
+// returns: none
+////////////////////////////////////////
+
 void grayscale(FILE *in, FILE *out) {
     unsigned char header[54];
     

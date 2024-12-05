@@ -1,8 +1,2 @@
-//void blur();
-#ifndef BLUR_H
-#define BLUR_H
-#define SIZE 100
+void blur(FILE *in, FILE *out);
 
-void blur();
-
-#endif 

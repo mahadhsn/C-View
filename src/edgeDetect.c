@@ -5,18 +5,23 @@
 #define SOBEL_X {-1, 0, 1, -2, 0, 2, -1, 0, 1}
 #define SOBEL_Y {-1, -2, -1, 0, 0, 0, 1, 2, 1}
 
+////////////////////////////////////////
+// Function to detect edges in an image
+// arguments: FILE *in, FILE *out the input and output files
+// returns: none
+////////////////////////////////////////
 void edgeDetect(FILE *in, FILE *out) {
     unsigned char imageHeader[54];
 
     // Step 1: Read the BMP header to get image dimensions and verify file type
     if (fread(imageHeader, sizeof(unsigned char), 54, in) != 54) {
-        printf("Error reading image header\n");
+        //printf("Error reading image header\n");
         return;
     }
 
     // Check for BMP format (first two bytes should be 'B' and 'M')
     if (imageHeader[0] != 'B' || imageHeader[1] != 'M') {
-        printf("Error: This is not a valid BMP file\n");
+        //printf("Error: This is not a valid BMP file\n");
         return;
     }
 
@@ -24,18 +29,18 @@ void edgeDetect(FILE *in, FILE *out) {
     unsigned int height = *(unsigned int*)&imageHeader[22];
     unsigned int padding = (4 - (width * 3) % 4) % 4;
 
-    printf("Width: %u, Height: %u, Padding: %u\n", width, height, padding);
+    //printf("Width: %u, Height: %u, Padding: %u\n", width, height, padding);
 
     // Step 2: Allocate memory for the image data (including padding)
     unsigned char* imageData = (unsigned char*)malloc((width * 3 + padding) * height);
     if (imageData == NULL) {
-        printf("Error allocating memory for image data\n");
+        //printf("Error allocating memory for image data\n");
         return;
     }
 
     // Step 3: Read image data, including padding
     if (fread(imageData, sizeof(unsigned char), (width * 3 + padding) * height, in) != (width * 3 + padding) * height) {
-        printf("Error reading image data\n");
+        //printf("Error reading image data\n");
         free(imageData);
         return;
     }
@@ -43,7 +48,7 @@ void edgeDetect(FILE *in, FILE *out) {
     // Step 4: Allocate memory for edge data (black and white edge image)
     unsigned char* edgeData = (unsigned char*)malloc((width * 3 + padding) * height);
     if (edgeData == NULL) {
-        printf("Error allocating memory for edge data\n");
+        //printf("Error allocating memory for edge data\n");
         free(imageData);
         return;
     }
@@ -134,7 +139,7 @@ void edgeDetect(FILE *in, FILE *out) {
 
     // Step 9: Write the edge data to the output file (using the same header)
     if (fwrite(imageHeader, sizeof(unsigned char), 54, out) != 54) {
-        printf("Error writing image header\n");
+        //printf("Error writing image header\n");
         free(imageData);
         free(edgeData);
         return;
@@ -143,7 +148,7 @@ void edgeDetect(FILE *in, FILE *out) {
     // Write the edge data
     for (unsigned int i = 0; i < height; i++) {
         if (fwrite(edgeData + i * (width * 3 + padding), sizeof(unsigned char), width * 3, out) != width * 3) {
-            printf("Error writing edge data\n");
+            //printf("Error writing edge data\n");
             free(imageData);
             free(edgeData);
             return;
